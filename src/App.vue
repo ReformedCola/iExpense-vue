@@ -1,8 +1,14 @@
 <template>
-  <div id="app">
-    <div id="nav">
-    </div>
+  <div>
     <router-view/>
+    <hr/>
+    <div>
+      <router-link to="/labels">Tags</router-link>
+      |
+      <router-link to="/money">Expense</router-link>
+      |
+      <router-link to="/statistics">Statistics</router-link>
+    </div>
   </div>
 </template>
 
