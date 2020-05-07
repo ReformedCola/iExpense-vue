@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nav">
     <router-link to="/labels">Tags</router-link>
     |
     <router-link to="/money">Expense</router-link>
@@ -19,5 +19,6 @@
 </script>
 
 <style lang="scss" scoped>
-
+  .nav {
+  }
 </style>
