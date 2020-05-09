@@ -1,10 +1,19 @@
 <template>
   <div class="nav">
-    <router-link to="/labels">Tags</router-link>
+    <router-link to="/labels">
+      <Icon name="label"/>
+      Tags
+    </router-link>
     |
-    <router-link to="/money">Expense</router-link>
+    <router-link to="/money">
+      <Icon name="money"/>
+      Expense
+    </router-link>
     |
-    <router-link to="/statistics">Statistics</router-link>
+    <router-link to="/statistics">
+      <Icon name="statistics"/>
+      Statistics
+    </router-link>
   </div>
 </template>
 
