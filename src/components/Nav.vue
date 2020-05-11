@@ -1,7 +1,7 @@
 <template>
   <nav>
     <router-link to="/labels" class="item" active-class="selected">
-      <Icon name="label"/>
+      <Icon name="label2"/>
       Tags
     </router-link>
     <router-link to="/money" class="item" active-class="selected">
@@ -9,7 +9,7 @@
       Expense
     </router-link>
     <router-link to="/statistics" class="item" active-class="selected">
-      <Icon name="statistics"/>
+      <Icon name="statistics4"/>
       Statistics
     </router-link>
   </nav>
@@ -26,11 +26,14 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~@/assets/style/helper.scss";
+
   nav {
     display: flex;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
     flex-direction: row;
     font-size: 12px;
+
     > .item {
       padding: 2px 0;
       width: 33.33333%;
@@ -38,13 +41,15 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+
       .icon {
         width: 32px;
         height: 32px;
       }
     }
+
     > .item.selected {
-      color: red;
+      color: $color-highlight;
     }
   }
 </style>
