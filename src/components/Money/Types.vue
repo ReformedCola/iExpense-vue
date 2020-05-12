@@ -13,16 +13,11 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
 
-  @Component({
-    props: {
-      propMessage: String
-    }
-  })
+  @Component
   export default class Types extends Vue {
-    type = '-'; // '-' for Expense, '+' for Income
-    helloMsg = 'Hello, ' + this.propMessage;
+    type = '-';
 
-    selectType(type: string) { // type will only be '-' or '+'
+    selectType(type: string) {
       if (type !== '-' && type !== '+') {
         throw new Error('type is unknown');
       }
