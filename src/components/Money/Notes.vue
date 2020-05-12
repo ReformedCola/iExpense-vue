@@ -1,7 +1,10 @@
 <template>
   <label class="notes">
+    {{value}}
     <span class="name">Notes:</span>
-    <input type="text" placeholder="Type your notes here ~">
+    <input type="text"
+           v-model="value"
+           placeholder="Type your notes here ~">
   </label>
 </template>
 
@@ -11,7 +14,7 @@
 
   @Component
   export default class Notes extends Vue {
-
+    value = '';
   }
 </script>
 

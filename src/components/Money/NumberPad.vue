@@ -29,7 +29,7 @@
     output = '0';
 
     inputContent(event: MouseEvent) {
-      const button = (event.target as HTMLButtonElement);
+      const button = event.target as HTMLButtonElement;
       const input = button.textContent!;
       if (this.output.length === 16) {return;}
       if (this.output === '0') {
@@ -57,7 +57,7 @@
     }
 
     ok() {
-      //TODO
+      //TODO: Implement later
     }
   }
 </script>
