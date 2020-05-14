@@ -32,7 +32,7 @@
     }
 
     create() {
-      const name = window.prompt('Please enter the name of tag');
+      const name = window.prompt('Please enter the name of tag:');
       if (name === '') {
         window.alert('Tag name can not be empty');
       } else if (this.dataSource) {
