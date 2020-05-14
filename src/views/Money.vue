@@ -3,9 +3,11 @@
     <NumberPad :value.sync="record.amount"
                @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
-    <Notes :value.sync="record.notes"/>
+    <Notes field-name="Notes:"
+           placeholder="Type your notes here ~"
+           @update:value="onUpdateNotes"/>
     <Tags :data-source.sync="tags"
-          :value.sync="record.tags"/>
+          @update:value="onUpdateTags"/>
   </Layout>
 </template>
 
@@ -31,6 +33,14 @@
     record: RecordItem = {
       tags: [], notes: '', type: '-', amount: 0
     };
+
+    onUpdateTags(value: string[]) {
+      this.record.tags = value;
+    }
+
+    onUpdateNotes(value: string) {
+      this.record.notes = value;
+    }
 
     saveRecord() {
       const record2 = recordListModel.clone(this.record);

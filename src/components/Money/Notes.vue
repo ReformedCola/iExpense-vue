@@ -1,9 +1,9 @@
 <template>
   <label class="notes">
-    <span class="name">Notes:</span>
+    <span class="name">{{this.fieldName}}</span>
     <input type="text"
            v-model="value"
-           placeholder="Type your notes here ~">
+           :placeholder="this.placeholder">
   </label>
 </template>
 
@@ -13,7 +13,10 @@
 
   @Component
   export default class Notes extends Vue {
-    @Prop() readonly value!: string;
+    value = '';
+
+    @Prop({required: true}) fieldName!: string;
+    @Prop() placeholder?: string;
 
     @Watch('value')
     onValueChanged(value: string) {
