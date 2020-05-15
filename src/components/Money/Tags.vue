@@ -4,9 +4,10 @@
       <button @click="create">New Tag</button>
     </div>
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag"
+      <li v-for="tag in dataSource" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag) > -1}"
-          @click="toggle(tag)">{{tag}}
+          @click="toggle(tag)">
+        {{tag.name}}
       </li>
     </ul>
   </div>
