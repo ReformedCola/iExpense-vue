@@ -10,6 +10,7 @@ type Tag = {
   id: string;
   name: string;
 }
+
 type TagListModel = {
   data: Tag[];
   fetch: () => Tag[];
@@ -25,4 +26,6 @@ interface Window {
   findTag: (id: string) => Tag;
   removeTag: (id: string) => boolean;
   updateTag: (id: string, name: string) => 'success' | 'not found' | 'duplicated';
+  recordList: RecordItem[];
+  createRecord: (record: RecordItem) => void;
 }
