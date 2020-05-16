@@ -20,7 +20,6 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import tagListModel from '@/models/tagListModel';
   import Button from '@/components/Button.vue';
 
   @Component({
@@ -32,12 +31,7 @@
     createTag() {
       const name = window.prompt('Please enter the name of tag:');
       if (name) {
-        const message = tagListModel.create(name);
-        if (message === 'duplicated') {
-          window.alert('Duplicated Tag');
-        } else if (message === 'success') {
-          window.alert('Added Successfully');
-        }
+        window.createTag(name);
       }
     }
   }
