@@ -1,15 +1,17 @@
 <template>
   <Layout>
     <div class="navBar">
-      <Icon class="leftIcon" name="left"/>
+      <Icon class="leftIcon" name="left" @click="goBack"/>
       <span class="title">Edit Label</span>
       <span class="rightIcon"></span>
     </div>
     <div class="form-wrapper">
-      <FormItem :value="tag.name" field-name="Label" placeholder="Type your label name here ~"/>
+      <FormItem :value="tag.name"
+                @update:value="update"
+                field-name="Label" placeholder="Type your label name here ~"/>
     </div>
     <div class="button-wrapper">
-      <Button>Delete Label</Button>
+      <Button @click="remove">Delete Label</Button>
     </div>
   </Layout>
 </template>
@@ -37,6 +39,26 @@
       } else {
         this.$router.replace('/404');
       }
+    }
+
+    update(name: string) {
+      if (this.tag) {
+        tagListModel.update(this.tag.id, name);
+      }
+    }
+
+    remove() {
+      if (this.tag) {
+        if (tagListModel.remove(this.tag.id)) {
+          this.$router.back();
+        } else {
+          window.alert('Failed to delete')
+        }
+      }
+    }
+
+    goBack() {
+      this.$router.back();
     }
   }
 </script>
