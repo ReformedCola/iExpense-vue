@@ -1,27 +1,11 @@
 import createId from '@/lib/createId';
 
-const localStorageKeyName = 'tagList';
 const tagStore = {
-  tagList: [] as Tag[],
-  fetchTags() {
-    this.tagList = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
-    return this.tagList;
-  },
+
   findTag(id: string) {
     return this.tagList.filter(t => t.id === id)[0];
   },
-  createTag(name: string) {
-    const names = this.tagList.map(item => item.name);
-    if (names.indexOf(name) >= 0) {
-      window.alert('Duplicated Tag');
-      return 'duplicated';
-    }
-    const id = createId().toString();
-    this.tagList.push({id, name: name});
-    this.saveTags();
-    window.alert('Added Successfully');
-    return 'success';
-  },
+
   removeTag(id: string) {
     let index = -1;
     for (let i = 0; i < this.tagList.length; i++) {
@@ -50,9 +34,7 @@ const tagStore = {
       return 'not found';
     }
   },
-  saveTags() {
-    window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.tagList));
-  }
+
 };
 
 tagStore.fetchTags();
