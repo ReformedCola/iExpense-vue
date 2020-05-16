@@ -16,11 +16,17 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/index2';
 
-  @Component
+  @Component({
+    computed: {
+      tagList() {
+        // TODO
+        return [];
+      }
+    }
+  })
   export default class Tags extends Vue {
-    tagList = store.fetchTags();
+    // tagList = store.fetchTags();
     selectedTags: string[] = [];
 
     toggle(tag: string) {
@@ -38,7 +44,8 @@
       if (!name) {
         return window.alert('Tag name can not be empty');
       }
-      store.createTag(name);
+      // TODO
+      // store.createTag(name);
     }
   }
 </script>
