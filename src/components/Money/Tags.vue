@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button @click="create">New Tag</button>
+      <button @click="createTag">New Tag</button>
     </div>
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
@@ -14,8 +14,9 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
+  import {mixins} from 'vue-class-component';
+  import {TagHelper} from '@/mixins/TagHelper';
 
   @Component({
     computed: {
@@ -24,8 +25,7 @@
       }
     }
   })
-  export default class Tags extends Vue {
-    // tagList = store.fetchTags();
+  export default class Tags extends mixins(TagHelper) {
     selectedTags: string[] = [];
 
     created() {
@@ -42,13 +42,6 @@
       this.$emit('update:value', this.selectedTags);
     }
 
-    create() {
-      const name = window.prompt('Please enter the name of tag:');
-      if (!name) {
-        return window.alert('Tag name can not be empty');
-      }
-      this.$store.commit('createTag', name);
-    }
   }
 </script>
 

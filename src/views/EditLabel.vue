@@ -30,7 +30,7 @@
 
     created() {
 
-      // TODO£
+      // TODO
       // this.tag = store.findTag(this.$route.params.id);
       if (!this.tag) {
         this.$router.replace('/404');
