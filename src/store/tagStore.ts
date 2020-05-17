@@ -2,9 +2,7 @@ import createId from '@/lib/createId';
 
 const tagStore = {
 
-  findTag(id: string) {
-    return this.tagList.filter(t => t.id === id)[0];
-  },
+
 
   removeTag(id: string) {
     let index = -1;
