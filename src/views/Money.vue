@@ -43,6 +43,8 @@
     saveRecord() {
       if (!this.record.tags || this.record.tags.length === 0) {
         return window.alert('Please select at least one tag!');
+      } else if (this.record.amount === 0) {
+        return window.alert(`Amount Can't Be 0!`);
       }
       this.$store.commit('createRecord', this.record);
       if (this.$store.state.createRecordError === null) {
