@@ -45,6 +45,8 @@
         .filter(r => r.type === this.type)
         .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
 
+      if (newList.length === 0) {return [] as Result;}
+
       type Result = { title: string; total?: number; items: RecordItem[] }[]
       const result: Result = [{title: dayjs(newList[0].createdAt).format('MMMM DD, YYYY'), items: [newList[0]]}];
       for (let i = 1; i < newList.length; i++) {
@@ -58,7 +60,8 @@
       }
       result.map(group => {
         group.total = group.items.reduce((sum, item) => {
-          return sum + item.amount}, 0);
+          return sum + item.amount;
+        }, 0);
       });
       return result;
     }
