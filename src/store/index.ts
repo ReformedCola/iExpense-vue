@@ -10,14 +10,17 @@ const store = new Vuex.Store({
   state: {
     recordList: [],
     tagList: [],
-    currentTag: undefined
+    currentTag: undefined,
+    createRecordError: null,
+    createTagError: null,
   } as RootState,
   mutations: {
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
-    createRecord(state, record) {
-      const record2: RecordItem = clone(record);
+    createRecord(state, record: RecordItem) {
+      state.createRecordError = null;
+      const record2 = clone(record);
       record2.createdAt = new Date().toISOString();
       state.recordList.push(record2);
       console.log(state.recordList);
@@ -29,16 +32,23 @@ const store = new Vuex.Store({
     },
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if (!state.tagList || state.tagList.length === 0) {
+        store.commit('createTag', 'Cloth');
+        store.commit('createTag', 'Food');
+        store.commit('createTag', 'House');
+        store.commit('createTag', 'Travel');
+      }
     },
     createTag(state, name: string) {
+      state.createTagError = null;
       const names = state.tagList.map(item => item.name);
       if (names.indexOf(name) >= 0) {
-        window.alert('Duplicated Tag');
+        state.createTagError = new Error('Duplicated Tag');
+        return;
       }
       const id = createId().toString();
       state.tagList.push({id, name: name});
       store.commit('saveTags');
-      window.alert('Added Successfully');
     },
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));

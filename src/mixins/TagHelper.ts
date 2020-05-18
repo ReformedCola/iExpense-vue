@@ -1,5 +1,9 @@
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import Vue from 'vue';
+import Component from 'vue-class-component';
+
+const map: { [key: string]: string } = {
+  'Duplicated Tag': 'Duplicated Tag'
+};
 
 @Component
 export class TagHelper extends Vue {
@@ -9,5 +13,8 @@ export class TagHelper extends Vue {
       return window.alert('Tag name can not be empty');
     }
     this.$store.commit('createTag', name);
+    if (this.$store.state.createTagError) {
+      window.alert(map[this.$store.state.createTagError.message] || 'Unknown Error');
+    }
   }
 }

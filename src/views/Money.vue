@@ -7,9 +7,9 @@
     <div class="notes">
       <FormItem field-name="Notes:"
                 placeholder="Type your notes here ~"
-                @update:value="onUpdateNotes"/>
+                :value.sync="record.notes"/>
     </div>
-    <Tags/>
+    <Tags @update:value="record.tags = $event"/>
   </Layout>
 </template>
 
@@ -40,12 +40,15 @@
       this.$store.commit('fetchRecords');
     }
 
-    onUpdateNotes(value: string) {
-      this.record.notes = value;
-    }
-
     saveRecord() {
+      if (!this.record.tags || this.record.tags.length === 0) {
+        return window.alert('Please select at least one tag!');
+      }
       this.$store.commit('createRecord', this.record);
+      if (this.$store.state.createRecordError === null) {
+        window.alert('Save Successfully!');
+        this.record.notes = '';
+      }
     }
   }
 </script>
