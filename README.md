@@ -1,4 +1,4 @@
-# iexpense
+# iExpense
 
 ## Project setup
 ```
