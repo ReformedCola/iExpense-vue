@@ -1,29 +1,33 @@
 type RecordItem = {
-  tags: Tag[];
+  tags: TagItem;
   notes: string;
   type: string;
   amount: number;
   createdAt?: string;
+  id?: number;
 }
 
-type Tag = {
-  id: string;
+type TagItem = {
   name: string;
+  value: string;
 }
 
-type TagListModel = {
-  data: Tag[];
-  fetch: () => Tag[];
-  create: (name: string) => 'success' | 'duplicated';
-  update: (id: string, name: string) => 'success' | 'not found' | 'duplicated';
-  remove: (id: string) => boolean;
-  save: () => void;
-}
 
 type RootState = {
   recordList: RecordItem[];
-  tagList: Tag[];
-  currentTag?: Tag;
+  tagList: TagItem[];
+  currentRecord?: RecordItem;
   createRecordError: Error | null;
   createTagError: Error | null;
+}
+
+type Group = {
+  name: string;
+  items: RecordItem[];
+}
+
+type ChartGroup = {
+  tag: TagItem;
+  amount: number;
+  percentage: number;
 }

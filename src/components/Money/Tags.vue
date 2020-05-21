@@ -1,43 +1,48 @@
 <template>
-  <div class="tags">
-    <div class="new">
-      <button @click="createTag">New Tag</button>
-    </div>
-    <ul class="current">
-      <li v-for="tag in tagList" :key="tag.id"
-          :class="{selected: selectedTags.indexOf(tag) > -1}"
-          @click="toggle(tag)">
-        {{tag.name}}
-      </li>
-    </ul>
-  </div>
+  <ul class="tags" :class="{[classPrefix+'-tags']: classPrefix}">
+    <li v-for="(tag, index) in tagList" :key="index"
+        class="tags-item"
+        @click="select(tag)"
+        :class="{[classPrefix+'-tags-item']: classPrefix }">
+      <div class="tags-item-icon"
+           :class="{'selected': tag.name === selectedTag.name,
+                    [classPrefix+'-tags-item-icon']: classPrefix}">
+        <Icon :name="tag.name"/>
+      </div>
+      <span>{{tag.value}}</span>
+    </li>
+    <li v-if="dynamic" class="tags-item">
+      <div class="tags-item-icon" @click="add">
+        <Icon name="addTag"/>
+      </div>
+      <span>Add</span>
+    </li>
+  </ul>
 </template>
 
 <script lang="ts">
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import {mixins} from 'vue-class-component';
   import {TagHelper} from '@/mixins/TagHelper';
 
   @Component
   export default class Tags extends mixins(TagHelper) {
-    selectedTags: string[] = [];
+    @Prop(String) classPrefix?: string;
+    @Prop({required: true, type: Object}) selectedTag!: TagItem;
+    @Prop({type: Boolean, default: false}) dynamic!: boolean;
+    @Prop({required: true, type: Array}) tagList!: TagItem[];
 
-    get tagList() {
-      return this.$store.state.tagList;
+    // created() {
+    //   this.$store.commit('fetchTags');
+    // }
+
+
+    select(tag: TagItem) {
+      this.$emit('update:selectedTag', tag);
     }
 
-    created() {
-      this.$store.commit('fetchTags');
-    }
-
-    toggle(tag: string) {
-      const index = this.selectedTags.indexOf(tag);
-      if (index >= 0) {
-        this.selectedTags.splice(index, 1);
-      } else {
-        this.selectedTags.push(tag);
-      }
-      this.$emit('update:value', this.selectedTags);
+    add() {
+      this.$router.replace('/edit-tag');
     }
 
   }
@@ -45,44 +50,40 @@
 
 <style lang="scss" scoped>
   .tags {
-    background: white;
-    font-size: 14px;
     padding: 16px;
-    flex-grow: 1;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    overflow: auto;
 
-    > .current {
+    &-item {
+      width: 25%;
+      padding: 12px 0;
+      font-size: 12px;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
 
-      > li {
-        $bg: #d9d9d9;
-        background: $bg;
-        $h: 24px;
-        height: $h;
-        line-height: $h;
-        border-radius: $h/2;
-        padding: 0 16px;
-        margin-right: 12px;
-        margin-top: 4px;
+      &-icon {
+        width: 48px;
+        height: 48px;
+        padding: 4px;
+        border-radius: 50%;
+        background: #f5f5f5;
+        margin-bottom: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         &.selected {
-          background: darken($bg, 50%);
-          color: white;
+          background: #ffda47;
         }
-      }
-    }
 
-    > .new {
-      padding-top: 16px;
-
-      button {
-        background: transparent;
-        border: none;
-        color: #999;
-        border-bottom: 1px solid;
-        padding: 0 3px;
+        svg {
+          width: 30px;
+          height: 30px;
+        }
       }
     }
   }

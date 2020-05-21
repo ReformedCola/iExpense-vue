@@ -52,7 +52,7 @@
       svg {
         width: 18px;
         height: 18px;
-        color: #666;
+        /*color: #666;*/
         margin-right: 16px;
       }
     }

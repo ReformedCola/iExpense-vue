@@ -1,11 +1,21 @@
 <template>
-  <div class="numberPad">
+  <div class="numberPad" :class="classPrefix && `${classPrefix}-numberPad`">
+    <label class="notes">
+      <div class="icon-wrapper">
+        <Icon name="note"/>
+      </div>
+      <span class="name">Notes :</span>
+      <input type="text" placeholder="Tap to input ~" class="input"
+             :value="notes" @input="onValueChanged($event.target.value)">
+    </label>
     <div class="output">{{output}}</div>
     <div class="buttons">
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="remove">Delete</button>
+      <button @click="remove">
+        <Icon name="delete"/>
+      </button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
@@ -26,13 +36,16 @@
 
   @Component
   export default class NumberPad extends Vue {
+    @Prop({required: true, type: String}) notes!: string;
+    @Prop(String) classPrefix?: string;
     @Prop(Number) readonly value!: number;
+
     output = this.value.toString();
 
     inputContent(event: MouseEvent) {
       const button = event.target as HTMLButtonElement;
       const input = button.textContent!;
-      if (this.output.length === 16) {return;}
+      if (this.output.length === 8) {return;}
       if (this.output === '0') {
         if ('0123456789'.indexOf(input) >= 0) {
           this.output = input;
@@ -40,6 +53,11 @@
           this.output += input;
         }
         return;
+      }
+      if (this.output.indexOf('.') >= 0) {
+        if (this.output.toString().split('.')[1].length >= 2) {
+          return;
+        }
       }
       if (this.output.indexOf('.') >= 0 && input === '.') {return;}
       this.output += input;
@@ -63,6 +81,10 @@
       this.$emit('submit', number);
       this.output = '0';
     }
+
+    onValueChanged(notes: string) {
+      this.$emit('update:notes', notes);
+    }
   }
 </script>
 
@@ -73,11 +95,11 @@
     .output {
       @extend %clearFix;
       @extend %innerShadow;
-      font-size: 36px;
       font-family: Consolas, monospace;
       padding: 9px 16px;
       text-align: right;
-      height: 72px;
+      font-size: 24px;
+      line-height: 24px;
     }
 
     .buttons {
@@ -90,16 +112,16 @@
         background: transparent;
         border: none;
 
+        $bg: #f2f2f2;
+
         &.ok {
-          height: 64*2px;
           float: right;
+          height: 64 * 2px;
         }
 
         &.zero {
           width: 25*2%;
         }
-
-        $bg: #f2f2f2;
 
         &:nth-child(1) {
           background: $bg;
@@ -130,5 +152,32 @@
         }
       }
     }
+
+    .notes {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+
+      font-size: 14px;
+      border-top: 1px solid #f5f5f5;
+
+      .icon-wrapper {
+        padding-left: 8px;
+      }
+
+      .name {
+        padding-left: 8px;
+      }
+
+      .input {
+        height: 32px;
+        padding-left: 8px;
+        flex-grow: 1;
+        border: none;
+        background: transparent;
+      }
+    }
+
   }
 </style>

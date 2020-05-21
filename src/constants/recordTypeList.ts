@@ -1,4 +1,4 @@
 export default Object.freeze([
-  {text: 'Expense', value: '-'},
-  {text: 'Income', value: '+'},
+  {name: 'Expense', value: '-'},
+  {name: 'Income', value: '+'},
 ]);

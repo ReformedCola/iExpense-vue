@@ -1,5 +1,5 @@
 export default Object.freeze([
-  {text: 'Day', value: 'day'},
-  {text: 'Week', value: 'week'},
-  {text: 'Month', value: 'month'},
+  {name: 'Week', value: 'week'},
+  {name: 'Month', value: 'month'},
+  {name: 'Year', value: 'year'},
 ]);

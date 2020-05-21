@@ -1,67 +1,117 @@
 <template>
-  <Layout class-prefix="layout">
-    <NumberPad :value.sync="record.amount"
-               @submit="saveRecord"/>
-    <Tabs :data-source="recordTypeList"
-          :value.sync="record.type"/>
-    <div class="notes">
-      <FormItem field-name="Notes:"
-                placeholder="Type your notes here ~"
-                :value.sync="record.notes"/>
+  <div class="money">
+    <div class="types">
+      <Tabs class-prefix="types"
+            :data-source="recordTypeList"
+            :value.sync="record.type"/>
+      <button class="cancel" @click="cancel">Cancel</button>
     </div>
-    <Tags @update:value="record.tags = $event"/>
-  </Layout>
+    <Tags v-if="record.type === '-'" class-prefix="money"
+          :dynamic="true" :selected-tag.sync="record.tags"
+          :tag-list="tagList"
+          class="tag-list"/>
+    <Tags v-else-if="record.type === '+'" class-prefix="money"
+          :selected-tag.sync="record.tags"
+          :tag-list="incomeTags"
+          class="tag-list"/>
+    <NumberPad :value.sync="record.amount"
+               @submit="saveRecord"
+               class-prefix="money"
+               :notes.sync="record.notes"/>
+  </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
-  import NumberPad from '@/components/Money/NumberPad.vue';
-  import FormItem from '@/components/Money/FormItem.vue';
-  import Tags from '@/components/Money/Tags.vue';
+  import {Component, Watch} from 'vue-property-decorator';
   import Tabs from '@/components/Tabs.vue';
   import recordTypeList from '@/constants/recordTypeList';
+  import NumberPad from '@/components/Money/NumberPad.vue';
+  import {defaultIncomeTags} from '@/constants/defaultTags';
+  import Tags from '@/components/Money/Tags.vue';
 
   @Component({
-    components: {Tabs, Tags, FormItem, NumberPad},
+    components: {Tags, NumberPad, Tabs}
   })
   export default class Money extends Vue {
-    get recordList() {
-      return this.$store.state.recordList;
+    record: RecordItem = this.initRecord();
+    recordTypeList = recordTypeList;
+    incomeTags = defaultIncomeTags;
+
+    get tagList(): TagItem[] {
+      return this.$store.state.tagList;
     }
 
-    recordTypeList = recordTypeList;
-
-    record: RecordItem = {
-      tags: [], notes: '', type: '-', amount: 0
-    };
+    initRecord(): RecordItem {
+      return {tags: {name: 'food', value: 'Food'}, notes: '', type: '-', amount: 0};
+    }
 
     created() {
-      this.$store.commit('fetchRecords');
+      this.$store.commit('fetchTags');
+    }
+
+    cancel() {
+      this.$router.replace('/details');
     }
 
     saveRecord() {
-      if (!this.record.tags || this.record.tags.length === 0) {
-        return window.alert('Please select at least one tag!');
-      } else if (this.record.amount === 0) {
+      if (this.record.amount === 0) {
         return window.alert(`Amount Can't Be 0!`);
       }
-      this.$store.commit('createRecord', this.record);
+      this.$store.commit('insertRecord', this.record);
       if (this.$store.state.createRecordError === null) {
-        window.alert('Save Successfully!');
         this.record.notes = '';
+        this.record = this.initRecord();
+        this.$router.replace('/details');
+      }
+    }
+
+    @Watch('record.type')
+    onTypeChange(type: string) {
+      if (type === '+') {
+        this.record.tags = {name: 'salary', value: 'Salary'};
+      } else if (type === '-') {
+        this.record.tags = {name: 'food', value: 'Food'};
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  ::v-deep .layout-content {
+  @import "~@/assets/style/helper.scss";
+
+  .types {
+    background: $color-main;
     display: flex;
-    flex-direction: column-reverse;
+    justify-content: center;
+    position: relative;
+
+    ::v-deep .types-tabs-item {
+      padding: 24px 16px 8px 16px;
+    }
+
+    .cancel {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      font-size: 14px;
+      padding: 24px 16px 8px 16px;
+    }
   }
 
-  .notes {
-    padding: 12px 0;
+  ::v-deep {
+    .money-numberPad {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+    }
+  }
+
+  .money {
+    .tag-list {
+      padding-bottom: 76+56*4+12px;
+    }
   }
 </style>

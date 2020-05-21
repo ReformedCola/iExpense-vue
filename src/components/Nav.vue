@@ -1,16 +1,16 @@
 <template>
   <nav>
-    <router-link to="/labels" class="item" active-class="selected">
-      <Icon name="label2"/>
-      Tags
+    <router-link to="/details" class="item" active-class="selected">
+      <Icon name="details"/>
+      Details
     </router-link>
     <router-link to="/money" class="item" active-class="selected">
-      <Icon name="money"/>
+      <Icon name="add"/>
       Expense
     </router-link>
-    <router-link to="/statistics" class="item" active-class="selected">
-      <Icon name="statistics4"/>
-      Statistics
+    <router-link to="/charts" class="item" active-class="selected">
+      <Icon name="statistics"/>
+      Charts
     </router-link>
   </nav>
 </template>
@@ -31,8 +31,13 @@
   nav {
     @extend %outerShadow;
     display: flex;
+    padding: 4px 12px;
     flex-direction: row;
     font-size: 12px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 
     > .item {
       padding: 2px 0;
@@ -43,8 +48,8 @@
       flex-direction: column;
 
       .icon {
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
       }
     }
 
