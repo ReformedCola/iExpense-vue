@@ -196,7 +196,7 @@
       padding: 20px;
       background-color: rgba($blue, 1.0);
       color: white;
-      width: 320px;`
+      width: 320px;
       text-align: center;
       font-size: 1.2em;
       border-radius: 5px;
