@@ -5,16 +5,16 @@
       <div class="mask" v-show="show" @click="showVuePopup(false)"></div>
       <transition name="slide">
         <div class="popup-content" v-show="show">
-          <div class="tips-left">
-            <span class="top">Please use your phone to scan the QRCode for better experience!</span>
+          <div class="top">
+            <span>Please use your phone to scan the QRCode for better experience!</span>
             <br/>
-            <span>If not, you can use developer console on Google Chrome with phone mode to check it out ~</span>
+            <span>If not, you can use magic shortcuts to check it out ~ (see below)</span>
           </div>
           <img src="../assets/icons/qrcode.png" alt="Or you can use inspector with phone mode ~"/>
-          <div class="tips-right">
-            <span class="top">Mac users, you can simply hit Cmd + Option + J, and then hit Cmd + Shift + M</span>
-            <span> | </span>
-            <span>Window users, you can simply hit Ctrl + Shift + J, and then hit Ctrl + Shift + M</span>
+          <div>
+            <span>Mac: Cmd + Option + J, then Cmd + Shift + M</span>
+            <br/>
+            <span>Window: Ctrl + Shift + J, then Ctrl + Shift + M</span>
           </div>
         </div>
       </transition>
@@ -59,13 +59,13 @@
       background-color: white;
       -webkit-transition: all 0.2s ease-in;
       transition: all 0.2s ease-in;
-      .tips-left {
-        padding-left: 16px;
-        padding-right: 16px;
+      img {
+        width: 150px;
+        height: 150px;
+        margin: 16px 0;
       }
-      .tips-right {
-        padding-left: 16px;
-        padding-right: 16px;
+      .top {
+        padding-top: 32px;
       }
     }
   }
