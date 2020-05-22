@@ -15,7 +15,7 @@
       <div class="tags-item-icon" @click="add">
         <Icon name="addTag"/>
       </div>
-      <span>Add</span>
+      <span>More</span>
     </li>
   </ul>
 </template>
