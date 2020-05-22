@@ -354,6 +354,7 @@
     }
   }
 
+
   .noRecord {
     margin-top: 20vh;
   }

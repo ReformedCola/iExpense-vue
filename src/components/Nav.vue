@@ -38,6 +38,10 @@
     left: 0;
     bottom: 0;
     width: 100%;
+    background: white;
+    justify-content: space-between;
+    align-items: center;
+
 
     > .item {
       padding: 2px 0;
