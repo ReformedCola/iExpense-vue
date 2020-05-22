@@ -40,6 +40,9 @@
     /*background: #f5f5f5;*/
     background: #ffffff;
     text-align: center;
+    &::-webkit-scrollbar {
+      width: 0
+    }
   }
 
 </style>
