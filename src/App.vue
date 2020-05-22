@@ -43,6 +43,8 @@
     &::-webkit-scrollbar {
       width: 0
     }
+    -ms-overflow-style: none;
   }
+
 
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div class="xn-container">
-    <button @click="showVuePopup(true)">Phone mode for better experience</button>
+  <div class="xn-container" >
+    <button @click="showVuePopup(true)">Use Phone ( Click me ) <br/> for better experience</button>
     <div class="vue-popup">
       <div class="mask" v-show="show" @click="showVuePopup(false)"></div>
       <transition name="slide">
@@ -12,9 +12,9 @@
           </div>
           <img src="../assets/icons/qrcode.png" alt="Or you can use inspector with phone mode ~"/>
           <div>
-            <span>Mac: Cmd + Option + J, then Cmd + Shift + M</span>
+            <span><strong>Mac</strong>: Cmd + Option + J, Cmd + Shift + M, then Cmd + R</span>
             <br/>
-            <span>Window: Ctrl + Shift + J, then Ctrl + Shift + M</span>
+            <span><strong>Window</strong>: Ctrl + Shift + J, Ctrl + Shift + M, then Ctrl + R</span>
           </div>
         </div>
       </transition>
@@ -43,11 +43,12 @@
   button {
     display: block;
     width: 300px;
-    height: 44px;
+    height: 15px;
     margin: 20px auto;
     border-radius: 4px;
     background-color: #ffda44;
     color: #333333;
+    transform: translateY(-100%);
   }
   .vue-popup {
     .popup-content {

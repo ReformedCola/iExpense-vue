@@ -27,7 +27,9 @@
               '00'}}
             </div>
           </div>
-          <div></div>
+          <div>
+            <QRCode v-if="showCode === true" class="code"/>
+          </div>
         </div>
       </div>
     </header>
@@ -59,7 +61,6 @@
     <div v-else class="noRecord">
       <Blank/>
     </div>
-    <QRCode v-if="showCode === true" class="code"/>
   </Layout>
 </template>
 
@@ -70,6 +71,7 @@
   import clone from '@/lib/clone';
   import Blank from '@/components/Blank.vue';
   import QRCode from '@/components/QRCode.vue';
+
   @Component({
     components: {QRCode, Blank}
   })
@@ -79,6 +81,7 @@
 
     showCode = false;
     width = window.document.documentElement.clientWidth;
+
     created() {
       if (this.width > 500) {
         this.showCode = true;
@@ -226,6 +229,7 @@
     saveYear(year: string) {
       window.sessionStorage.setItem('year', year);
     }
+
     @Watch('month')
     saveMonth(month: string) {
       window.sessionStorage.setItem('month', month);
@@ -234,6 +238,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~@/assets/style/helper.scss";
   .header {
     background: #ffda47;
 
@@ -299,6 +304,13 @@
         display: flex;
         justify-content: space-between;
         padding: 4px 16px;
+
+        .code {
+          box-shadow: 0 0 8px $color-shadow;
+          border: 1px solid;
+          border-radius: 10px;
+          margin-left: -320px;
+        }
       }
     }
   }
@@ -353,7 +365,6 @@
       }
     }
   }
-
 
   .noRecord {
     margin-top: 20vh;
