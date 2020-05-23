@@ -12,13 +12,13 @@
         <span v-else-if="interval === 'month'">This Month</span>
         <span v-else>This Year</span>
       </div>
-      <div class="total">Total Expense: {{total}}</div>
-      <div class="average">Average: {{average}}</div>
+      <div class="total">Total : {{total}}</div>
+      <div class="average">Average : {{average}}</div>
       <div id="figure"></div>
     </div>
     <div class="ranking">
       <div class="caption">
-        <span>Expense Ranking</span>
+        <span>Ranking</span>
       </div>
       <ul class="tag-list" v-if="targetRecords.length > 0">
         <li class="tag-item" v-for="(item, index) in this.groupByTag()" :key="index">
