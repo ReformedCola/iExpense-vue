@@ -19,6 +19,6 @@
     height: 1em;
     vertical-align: -0.15em;
     fill: currentColor;
-    overflow: hidden;
+    overflow: hidden; 
   }
 </style>
