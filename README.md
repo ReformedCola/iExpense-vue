@@ -1,29 +1,19 @@
 # iExpense
 
-## Project setup
-```
-yarn install
-```
+A minimalist and useful bookkeeping web app developed with Vue.js + TypeScript.
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+Link: http://colachick.com/iExpense-vue-website/#/details
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## Tools I used
 
-### Run your unit tests
-```
-yarn test:unit
-```
+* Vue.js + Vuex + Vue Router + Lifecycle Hooks
 
-### Lints and fixes files
-```
-yarn lint
-```
+* TypeScript
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* Echarts.js
+
+* Sass
+
+## Others
+
+Feel free to fork and star it if you are learning Vue/TypeScript as well :kissing_heart:
