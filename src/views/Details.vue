@@ -27,9 +27,7 @@
               '00'}}
             </div>
           </div>
-          <div>
-            <QRCode v-if="showCode === true" class="code"/>
-          </div>
+          <div></div>
         </div>
       </div>
     </header>
@@ -70,23 +68,15 @@
   import dayjs from 'dayjs';
   import clone from '@/lib/clone';
   import Blank from '@/components/Blank.vue';
-  import QRCode from '@/components/QRCode.vue';
 
   @Component({
-    components: {QRCode, Blank}
+    components: {Blank}
   })
   export default class Details extends Vue {
     year = window.sessionStorage.getItem('year') || dayjs().year().toString();
     month = window.sessionStorage.getItem('month') || (dayjs().month() + 1).toString();
 
-    showCode = false;
     width = window.document.documentElement.clientWidth;
-
-    created() {
-      if (this.width > 500) {
-        this.showCode = true;
-      }
-    }
 
     get years() {
       const endYear = dayjs().year();
@@ -304,13 +294,6 @@
         display: flex;
         justify-content: space-between;
         padding: 4px 16px;
-
-        .code {
-          box-shadow: 0 0 8px $color-shadow;
-          border: 1px solid;
-          border-radius: 10px;
-          margin-left: -320px;
-        }
       }
     }
   }
